@@ -1,0 +1,56 @@
+<section class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2 mb-3">
+  <div>
+    <h2 class="h5 mb-1">Update Client</h2>
+    <p class="text-muted mb-0">Editing client ID: <strong><%= client.id %></strong></p>
+  </div>
+  <div class="d-flex gap-2">
+    <a class="btn btn-outline-primary btn-sm" href="/clients/<%= client.id %>">View Profile</a>
+    <a class="btn btn-outline-secondary btn-sm" href="/clients">Back to Clients</a>
+  </div>
+</section>
+
+<% if (errors && errors.length) { %>
+  <div class="alert alert-danger" role="alert">
+    <p class="mb-1 fw-semibold">Please fix the following issues:</p>
+    <ul class="mb-0">
+      <% errors.forEach(error => { %>
+        <li><%= error %></li>
+      <% }) %>
+    </ul>
+  </div>
+<% } %>
+
+<section class="card shadow-sm">
+  <div class="card-body">
+    <form method="post" action="/clients/<%= client.id %>/edit" novalidate>
+      <div class="mb-3">
+        <label class="form-label" for="fullName">Full Name</label>
+        <input class="form-control" id="fullName" name="fullName" type="text" value="<%= formData.fullName %>" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="email">Email</label>
+        <input class="form-control" id="email" name="email" type="email" value="<%= formData.email %>" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="riskCategory">Risk Category</label>
+        <select class="form-select" id="riskCategory" name="riskCategory" required>
+          <option value="Low" <%= formData.riskCategory === "Low" ? "selected" : "" %>>Low</option>
+          <option value="Medium" <%= formData.riskCategory === "Medium" ? "selected" : "" %>>Medium</option>
+          <option value="High" <%= formData.riskCategory === "High" ? "selected" : "" %>>High</option>
+        </select>
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label" for="createdDate">Created Date</label>
+        <input class="form-control" id="createdDate" name="createdDate" type="date" value="<%= formData.createdDate %>" required>
+      </div>
+
+      <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+        <a class="btn btn-outline-danger" href="/clients/<%= client.id %>/delete">Delete Client</a>
+      </div>
+    </form>
+  </div>
+</section>
